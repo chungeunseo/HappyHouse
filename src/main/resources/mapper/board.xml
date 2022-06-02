@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.happyhouse.model.mapper.BoardMapper">
+
+	<select id="searchAll" resultType="boardDTO">
+		select * 
+		from board
+	</select>
+	
+	<select id="searchByArticleno" parameterType="int" resultType="boardDTO">
+		select * 
+		from board
+		where articleno = #{articleno}
+	</select>
+	
+	<select id="searchBySubject" parameterType="string" resultType="boardDTO">
+		select * 
+		from board
+		where subject like CONCAT('%', #{subject},'%') 
+	</select>
+	
+	<select id="searchByUserId" parameterType="string" resultType="boardDTO">
+		select * 
+		from board
+		where userId = #{userid}
+	</select>
+	
+	<select id="searchByContent" parameterType="String" resultType="boardDTO">
+		select * 
+		from board
+		where Content like CONCAT('%', #{content} ,'%')
+	</select>
+	
+	<insert id="insert" parameterType="boardDTO">
+		insert into board(userId, subject, content) 
+		value(#{userid}, #{subject}, #{content})
+	</insert>
+	
+	<update id="update" parameterType="boardDTO">
+		update board 
+		   set subject = #{subject}, 
+		   	   userId = #{userid}, 
+		   	   content = #{content}
+		 where articleNo = #{articleno}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete 
+		  from board 
+		 where articleNo = #{articleNo}
+	</delete>
+	
+</mapper>
